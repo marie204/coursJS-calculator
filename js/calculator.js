@@ -122,7 +122,7 @@ function fonctionResult(){
 		
 		
 	}
-	
+
 	document.getElementById('result').innerHTML = total;
 }
 
