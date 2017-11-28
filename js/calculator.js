@@ -1,12 +1,5 @@
-// add your code here to make the calculator work
-document.getElementById('result').innerHTML = ""; 
-//document.getElementById('result').innerHTML='test';
-
-/*document.getElementsByClassName('btn').setAttribute('onclick', 'fonctionAttribute();');
-*/
 $(".btn").click(function(event) {
-	//console.log(this.innerHTML);
-	if(document.getElementById('result').innerHTML == 'erreur'){
+	if(document.getElementById('result').innerHTML == 'erreur' ){
 		document.getElementById('result').innerHTML = '';
 	}
 	switch (this.innerHTML) {
@@ -30,38 +23,121 @@ function fonctionResult(){
 	for (var i = 0; i <= document.getElementById('result').innerHTML.length-1 ; i++) {
 		b = a.length;
 		a[b] = document.getElementById('result').innerHTML.substr(i,1);
-		console.log(a);
 	}
 	char1 = '';
+	char2 = '';
 	total = 0;
+	lastId = '';
 	for (var i = 0; i < a.length; i++) {
 		switch (a[i]) {
 			case "+":
+			total = fonctionVerif(lastId, char1, char2);
 				char2 = fonctionRecup(a,i,char1);
-				total = parseInt(total);
 				char2 = parseInt(char2);
 				char1 = parseInt(char1);
-				total = total + char2 + char1;
+				oper = char1 + char2;
+				total = fonctionCalcul(lastId, oper, total);
 				char1 = '';
+				lastId = a[i];
 				break;
 			case '-':
+			total = fonctionVerif(lastId, char1, char2);
 				char2 = fonctionRecup(a, i, char1);
-				total = parseInt(total);
+				//total = parseInt(total);
+				char2 = parseInt(char2);
+				char1 = parseInt(char1);	
+				if (lastId == '-') {
+					oper = char1 + char2;
+				}else {
+					oper = char1 - char2;
+				}			
+				total = fonctionCalcul(lastId, oper, total);
+				char1 = '';
+				lastId = a[i];
+			break;
+			case '*':
+			total = fonctionVerif(lastId, char1, char2);
+				char2 = fonctionRecup(a,i,char1);
 				char2 = parseInt(char2);
 				char1 = parseInt(char1);
-				total = total + char1 - char2;
+				oper = char1 * char2;
+				total = fonctionCalcul(lastId, oper, total);
 				char1 = '';
+				lastId = a[i];
+				break;
 			break;
+			case '/':
+			total = fonctionVerif(lastId, char1, char2);
+				char2 = fonctionRecup(a,i,char1);
+				char2 = parseInt(char2);
+				char1 = parseInt(char1);
+				oper = char1 / char2;
+				total = fonctionCalcul(lastId, oper, total);
+				char1 = '';
+				lastId = a[i];
+				break;
 
 			default:
 				char1 = char1 + '' + a[i];
 				break;
 		}
-		/*console.log(char1);*/
+		
 		
 	}
-	console.log(total);
+	document.getElementById('result').innerHTML = total;
 }
+
+function fonctionCalcul(lastId, oper, total){
+	switch (lastId) {
+		case '+':
+			total = total + oper;
+			return total;
+			break;
+		case '-':
+			total = total - oper;
+			return total;
+			break;
+		case '*':
+			total = total * oper;
+			return total;
+			break;
+		case '/':
+			total = total / oper;
+			return total;
+			break;
+		default:
+			total = oper;
+			return total;			
+			break;
+
+	}
+}
+
+function fonctionVerif(lastId, char1, char2){
+	switch (lastId) {
+		case '+':
+			total = total - char2;
+			avtLast = '+';
+			break;
+		case '-':
+			total = total + char2;
+			avtLast = '-';
+			break;
+		case '/':
+			total = total * char2;
+			avtLast = '/';
+			break;
+		case '*':
+			total = total / char2;
+			avtLast = '*';
+			break;
+		default:
+			total = total;
+			break;
+	}
+	return (total);
+}
+
 
 function fonctionRecup(a,i,char1){
 	
@@ -74,7 +150,5 @@ function fonctionRecup(a,i,char1){
 			cat2 += ''+a[i];
 		}
 		}
-	//console.log(cat2);
 	return cat2;
-	console.log("my my");
 }
