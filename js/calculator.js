@@ -1,5 +1,46 @@
+$("body").keypress(function(key){
+	console.log(key.keyCode);
+	if(document.getElementById('result').innerHTML == 'NaN' ){
+		document.getElementById('result').innerHTML = '';
+	}
+	switch (key.keyCode) {
+		case 13:
+			fonctionResult();
+			break;
+		case 115:
+		document.getElementById('result').innerHTML = '';
+		break;
+		case 47:
+		case 42:
+		case 45:
+		case 43:
+		case 48:
+		case 49:
+		case 50:
+		case 51:
+		case 52:
+		case 53:
+		case 54:
+		case 55:
+		case 56:
+		case 57:
+		document.getElementById('result').innerHTML += String.fromCharCode(key.keyCode);
+		//console.log(String.fromCharCode(key.keyCode));
+		break;
+		//document.getElementById('result').innerHTML += key;
+		default:
+			// statements_def
+			break;
+	}
+
+
+
+})
+
+
+
 $(".btn").click(function(event) {
-	if(document.getElementById('result').innerHTML == 'erreur' ){
+	if(document.getElementById('result').innerHTML == 'NaN' ){
 		document.getElementById('result').innerHTML = '';
 	}
 	switch (this.innerHTML) {
@@ -14,10 +55,7 @@ $(".btn").click(function(event) {
 			document.getElementById('result').innerHTML += this.innerHTML;
 			break;
 	}
-	
 });
-
-
 function fonctionResult(){
 	var a = [];
 	for (var i = 0; i <= document.getElementById('result').innerHTML.length-1 ; i++) {
@@ -84,6 +122,7 @@ function fonctionResult(){
 		
 		
 	}
+	
 	document.getElementById('result').innerHTML = total;
 }
 
